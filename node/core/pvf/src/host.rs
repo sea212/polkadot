@@ -523,7 +523,7 @@ async fn handle_execute_pvf(
 						artifact: ArtifactPathId::new(artifact_id, cache_path),
 						execution_timeout,
 						params,
-						executor_params: (*pvf_with_params.executor_params()).clone(),
+						executor_params: pvf_with_params.executor_params,
 						result_tx,
 					},
 				)
@@ -534,7 +534,7 @@ async fn handle_execute_pvf(
 					artifact_id,
 					execution_timeout,
 					params,
-					(*pvf_with_params.executor_params()).clone(),
+					pvf_with_params.executor_params,
 					result_tx,
 				);
 			},
@@ -556,7 +556,7 @@ async fn handle_execute_pvf(
 						waiting_for_response: Vec::new(),
 						num_failures: *num_failures,
 					};
-					let executor_params = (*pvf_with_params.executor_params()).clone();
+					let executor_params = pvf_with_params.executor_params.clone();
 					send_prepare(
 						prepare_queue,
 						prepare::ToQueue::Enqueue {
@@ -584,7 +584,7 @@ async fn handle_execute_pvf(
 	} else {
 		// Artifact is unknown: register it and enqueue a job with the corresponding priority and
 		// PVF.
-		let executor_params = (*pvf_with_params.executor_params()).clone();
+		let executor_params = pvf_with_params.executor_params.clone();
 		artifacts.insert_preparing(artifact_id.clone(), Vec::new());
 		send_prepare(
 			prepare_queue,
@@ -597,7 +597,13 @@ async fn handle_execute_pvf(
 		.await?;
 
 		// Add an execution request that will wait to run after this prepare job has finished.
-		awaiting_prepare.add(artifact_id, execution_timeout, params, executor_params, result_tx);
+		awaiting_prepare.add(
+			artifact_id,
+			execution_timeout,
+			params,
+			executor_params.into(),
+			result_tx,
+		);
 	}
 
 	Ok(())

@@ -33,7 +33,7 @@ use std::{
 pub struct PvfWithExecutorParams {
 	pub(crate) code: Arc<Vec<u8>>,
 	pub(crate) code_hash: ValidationCodeHash,
-	pub(crate) executor_params: Arc<ExecutorParams>,
+	pub(crate) executor_params: ExecutorParams,
 }
 
 impl PvfWithExecutorParams {
@@ -41,7 +41,7 @@ impl PvfWithExecutorParams {
 	pub fn from_code(code: Vec<u8>, executor_params: ExecutorParams) -> Self {
 		let code = Arc::new(code);
 		let code_hash = blake2_256(&code).into();
-		let executor_params = Arc::new(executor_params);
+		let executor_params = executor_params;
 		Self { code, code_hash, executor_params }
 	}
 
@@ -61,8 +61,8 @@ impl PvfWithExecutorParams {
 	}
 
 	/// Returns executor params
-	pub(crate) fn executor_params(&self) -> Arc<ExecutorParams> {
-		self.executor_params.clone()
+	pub(crate) fn executor_params(&self) -> &ExecutorParams {
+		&self.executor_params
 	}
 
 	/// Creates a structure for tests
