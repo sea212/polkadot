@@ -747,8 +747,11 @@ fn kusama_staging_testnet_config_genesis(wasm_binary: &[u8]) -> kusama::GenesisC
 		},
 		phragmen_election: Default::default(),
 		democracy: Default::default(),
-		council: Default::default(),
-		technical_committee: Default::default(),
+		council: kusama::CouncilConfig { members: vec![], phantom: Default::default() },
+		technical_committee: kusama::TechnicalCommitteeConfig {
+			members: vec![],
+			phantom: Default::default(),
+		},
 		technical_membership: Default::default(),
 		babe: kusama::BabeConfig {
 			authorities: Default::default(),
