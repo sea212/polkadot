@@ -747,11 +747,8 @@ fn kusama_staging_testnet_config_genesis(wasm_binary: &[u8]) -> kusama::GenesisC
 		},
 		phragmen_election: Default::default(),
 		democracy: Default::default(),
-		council: kusama::CouncilConfig { members: vec![], phantom: Default::default() },
-		technical_committee: kusama::TechnicalCommitteeConfig {
-			members: vec![],
-			phantom: Default::default(),
-		},
+		council: Default::default(),
+		technical_committee: Default::default(),
 		technical_membership: Default::default(),
 		babe: kusama::BabeConfig {
 			authorities: Default::default(),
@@ -1446,9 +1443,12 @@ pub fn kusama_testnet_genesis(
 		},
 		phragmen_election: Default::default(),
 		democracy: kusama::DemocracyConfig::default(),
-		council: kusama::CouncilConfig { members: vec![], phantom: Default::default() },
+		council: kusama::CouncilConfig { 
+			members: vec![ get_account_id_from_seed::<sr25519::Public>("Alice") ],
+			phantom: Default::default() 
+		},
 		technical_committee: kusama::TechnicalCommitteeConfig {
-			members: vec![],
+			members: vec![ get_account_id_from_seed::<sr25519::Public>("Alice") ],
 			phantom: Default::default(),
 		},
 		technical_membership: Default::default(),
