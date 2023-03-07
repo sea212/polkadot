@@ -385,12 +385,12 @@ parameter_types! {
 }
 
 parameter_types! {
-	pub LaunchPeriod: BlockNumber = prod_or_fast!(7 * DAYS, 1, "ROC_LAUNCH_PERIOD");
-	pub VotingPeriod: BlockNumber = prod_or_fast!(7 * DAYS, 1 * MINUTES, "ROC_VOTING_PERIOD");
-	pub FastTrackVotingPeriod: BlockNumber = prod_or_fast!(3 * HOURS, 1 * MINUTES, "ROC_FAST_TRACK_VOTING_PERIOD");
+	pub LaunchPeriod: BlockNumber = 1 * MINUTES;
+	pub VotingPeriod: BlockNumber = 1 * MINUTES;
+	pub FastTrackVotingPeriod: BlockNumber = 1 * MINUTES;
 	pub const MinimumDeposit: Balance = 100 * CENTS;
-	pub EnactmentPeriod: BlockNumber = prod_or_fast!(8 * DAYS, 1, "ROC_ENACTMENT_PERIOD");
-	pub CooloffPeriod: BlockNumber = prod_or_fast!(7 * DAYS, 1 * MINUTES, "ROC_COOLOFF_PERIOD");
+	pub EnactmentPeriod: BlockNumber = 1 * MINUTES;
+	pub CooloffPeriod: BlockNumber = 1 * MINUTES;
 	pub const InstantAllowed: bool = true;
 	pub const MaxVotes: u32 = 100;
 	pub const MaxProposals: u32 = 100;

@@ -1356,9 +1356,12 @@ pub fn polkadot_testnet_genesis(
 		},
 		phragmen_election: Default::default(),
 		democracy: polkadot::DemocracyConfig::default(),
-		council: polkadot::CouncilConfig { members: vec![], phantom: Default::default() },
-		technical_committee: polkadot::TechnicalCommitteeConfig {
-			members: vec![],
+		council: kusama::CouncilConfig { 
+			members: vec![ get_account_id_from_seed::<sr25519::Public>("Alice") ],
+			phantom: Default::default() 
+		},
+		technical_committee: kusama::TechnicalCommitteeConfig {
+			members: vec![ get_account_id_from_seed::<sr25519::Public>("Alice") ],
 			phantom: Default::default(),
 		},
 		technical_membership: Default::default(),
